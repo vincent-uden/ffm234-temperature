@@ -32,6 +32,8 @@ while True:
 all_T = np.array(all_T).T
 
 plt.imshow(all_T, aspect="auto", cmap="coolwarm")
+plt.xlabel("# Time step")
+plt.ylabel("Djup mätt i antal punkter")
 plt.colorbar()
 plt.show()
 

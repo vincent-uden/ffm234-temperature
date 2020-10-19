@@ -35,6 +35,8 @@ all_T = np.array(all_T).T
 #plt.imshow(all_T, aspect="auto", cmap="coolwarm")
 #plt.colorbar()
 plt.plot(x,T)
+plt.xlabel("Djup (m)")
+plt.ylabel("Temperatur i grader Celsius")
 plt.grid()
 plt.show()
 
