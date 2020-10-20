@@ -31,10 +31,22 @@ while True:
 
 all_T = np.array(all_T).T
 
-plt.imshow(all_T, aspect="auto", cmap="coolwarm")
-plt.xlabel("# Time step")
-plt.ylabel("Djup mätt i antal punkter")
+plt.figure(200)
+plt.imshow(all_T, aspect="auto", cmap="coolwarm", extent = [0, all_T.shape[1], 1 , 0] )
+plt.xlabel("Tid (s)")
+plt.ylabel("Djup (m)")
 plt.colorbar()
+
+# Create new window
+plt.figure(300)
+plt.plot(x,T)
+plt.plot(x,all_T[:,30])
+plt.plot(x,all_T[:,200])
+plt.plot(x,all_T[:,600])
+plt.xlabel("Djup från markytan (m)")
+plt.ylabel("Temperatur ($\degree$ C)")
+
+
 plt.show()
 
 
