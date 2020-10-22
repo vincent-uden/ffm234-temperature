@@ -17,7 +17,6 @@ T[0] = -10.0
 
 def step_time(T, K):
     output = T + K * (np.roll(T,-1) - 2*T + np.roll(T,1)) + 100 / (C * RHO) * DELTA_T
-    # print(output[0], output[-1])
     output[0] = -10.0
     output[-1] = 0.0
     return output
@@ -32,18 +31,8 @@ while True:
 
 all_T = np.array(all_T).T
 
-
 print('top =',-(T[1]-T[0])*LAMBDA / (1/float(X_SIZE-1)))
 print('bottom =',-(T[-2]-T[-1])*LAMBDA / (1/float(X_SIZE-1)))
-
-#plt.imshow(all_T, aspect="auto", cmap="coolwarm")
-#plt.colorbar()
-
-#plt.plot(x,T)
-#plt.xlabel("Djup (m)")
-#plt.ylabel("Temperatur i grader Celsius")
-#plt.grid()
-#plt.show()
 
 plt.figure(200)
 plt.imshow(all_T, aspect="auto", cmap="coolwarm", extent = [0, all_T.shape[1], 1 , 0] )
@@ -58,7 +47,6 @@ plt.grid()
 plt.plot(x,T)
 plt.plot(x,all_T[:,30])
 plt.plot(x,all_T[:,200])
-#plt.plot(x,all_T[:,600])
 plt.xlabel("Djup från markytan (m)",fontsize = 'large')
 plt.ylabel("Temperatur ($\degree$C)",fontsize = 'large')
 

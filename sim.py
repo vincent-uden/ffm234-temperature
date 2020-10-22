@@ -48,7 +48,6 @@ plt.grid()
 plt.plot(x,T)
 plt.plot(x,all_T[:,30])
 plt.plot(x,all_T[:,200])
-#plt.plot(x,all_T[:,600])
 plt.xlabel("Djup från markytan (m)", fontsize='large')
 plt.ylabel("Temperatur ($\degree$C)", fontsize='large')
 
