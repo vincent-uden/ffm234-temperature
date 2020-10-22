@@ -9,15 +9,15 @@ np.set_printoptions(threshold=sys.maxsize)
 RHO = 1500.0
 LAMBDA = 1.0
 N = 51
-DELTA = 0.02  # 0.02 m = 2 cm = 1 / (N-1) 
+DELTA = 1/(N-1) # 0.02 m = 2 cm = 1 / (N-1) 
 K = 0.1
 C = 1000.0
 k = LAMBDA / (C*RHO)
 DELTA_T = K * pow(DELTA,2) / k
 
 T = np.zeros((N, N))
-x = np.linspace(-0.5, 0.5, num=51)
-y = np.linspace(1, 0, num=51)
+x = np.linspace(-0.5, 0.5, num=N)
+y = np.linspace(1, 0, num=N)
 
 def step_time_2d(T, K): 
     output = T + K * ( np.roll(T,-1,1) - 2 * T + np.roll(T,1,1) + np.roll(T,-1,0) - 2 * T + np.roll(T,1,0) )
@@ -28,20 +28,29 @@ def step_time_2d(T, K):
     output[15,25] += 250000 / (C * RHO) * DELTA_T
     return output
 
+time_steps = 0
 while True:
     new_T = step_time_2d(T, K)
-    if abs(np.mean(new_T - T)) < 0.000000001:
+    time_steps += 1
+    if abs(np.mean(new_T - T)) < pow(10, -9):
         break
     T = new_T
 
-#plt.imshow(T, aspect="auto", cmap="coolwarm")
-#plt.colorbar()
 
 q = (-LAMBDA) * np.array(np.gradient(T, DELTA))
 
-plt.contour(x, y, T, levels=10)
-plt.streamplot(x, y, q[1], -q[0], color="crimson")
+c = plt.contourf(x, y, T, levels=list(range(-10,int(np.max(T)), 8)))
+plt.streamplot(x, y, q[1], -q[0], color="white", density=0.7, linewidth=1.4)
+plt.axis((-0.5, 0.5, 0, 1))
+ax = plt.gca()
+ax.set_xlabel("y position (m)")
+ax.set_ylabel("x position (m)")
+cbar = plt.colorbar(c, ax=ax, ticks=list(range(-10, int(np.max(T)), 10)))
+cbar.set_label("Temperatur (°C)")
 
-print(x,y)
+print(f"Time step size: {DELTA_T}")
+print(f"Tolarence cleared after {time_steps} iterations. ({time_steps * DELTA_T / 60 / 60} hours)")
+print(f"Total temperature flow through the top is {np.sum(T[2,:]-T[1,:]) * LAMBDA}")
+print(f"Total temperature flow through the bottom is {np.sum(T[-2,:]-T[-1,:]) * LAMBDA}")
 
 plt.show()
