@@ -25,19 +25,40 @@ def step_time(T, K):
 all_T = [T]
 while True:
     new_T = step_time(T, K)
-    if abs(np.mean(new_T - T)) < 0.00000001:
+    if abs(np.mean(new_T - T)) < 0.0001:
         break
     T = new_T
     all_T.append(T)
 
 all_T = np.array(all_T).T
 
+print(all_T.shape)
+
 #plt.imshow(all_T, aspect="auto", cmap="coolwarm")
 #plt.colorbar()
-plt.plot(x,T)
-plt.xlabel("Djup (m)")
-plt.ylabel("Temperatur i grader Celsius")
+
+#plt.plot(x,T)
+#plt.xlabel("Djup (m)")
+#plt.ylabel("Temperatur i grader Celsius")
+#plt.grid()
+#plt.show()
+
+plt.figure(200)
+plt.imshow(all_T, aspect="auto", cmap="coolwarm", extent = [0, all_T.shape[1], 1 , 0] )
+plt.xlabel("Tid (s)",fontsize = 'large')
+plt.ylabel("Djup (m)",fontsize = 'large')
+cbar = plt.colorbar()
+cbar.set_label('Temperatur ($\degree$C)',fontsize = 'large')
+
+# Create new window
+plt.figure(300)
 plt.grid()
+plt.plot(x,T)
+plt.plot(x,all_T[:,30])
+plt.plot(x,all_T[:,200])
+#plt.plot(x,all_T[:,600])
+plt.xlabel("Djup från markytan (m)",fontsize = 'large')
+plt.ylabel("Temperatur ($\degree$C)",fontsize = 'large')
+
+
 plt.show()
-
-
