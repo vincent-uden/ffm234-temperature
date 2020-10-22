@@ -31,6 +31,8 @@ while True:
 
 all_T = np.array(all_T).T
 
+print('top =',-(T[1]-T[0]) * LAMBDA / (1/float(X_SIZE-1)))
+print('bottom =',-(T[-2]-T[-1]) * LAMBDA / (1/float(X_SIZE-1)))
 
 
 plt.figure(200)

@@ -32,7 +32,9 @@ while True:
 
 all_T = np.array(all_T).T
 
-print(all_T.shape)
+
+print('top =',-(T[1]-T[0])*LAMBDA / (1/float(X_SIZE-1)))
+print('bottom =',-(T[-2]-T[-1])*LAMBDA / (1/float(X_SIZE-1)))
 
 #plt.imshow(all_T, aspect="auto", cmap="coolwarm")
 #plt.colorbar()
