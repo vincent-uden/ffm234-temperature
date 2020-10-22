@@ -31,8 +31,28 @@ while True:
 
 all_T = np.array(all_T).T
 
-plt.imshow(all_T, aspect="auto", cmap="coolwarm")
-plt.colorbar()
+print('top =',-(T[1]-T[0]) * LAMBDA / (1/float(X_SIZE-1)))
+print('bottom =',-(T[-2]-T[-1]) * LAMBDA / (1/float(X_SIZE-1)))
+
+
+plt.figure(200)
+plt.imshow(all_T, aspect="auto", cmap="coolwarm", extent = [0, all_T.shape[1], 1 , 0])
+plt.xlabel("Tid (s)", fontsize = 'large')
+plt.ylabel("Djup (m)", fontsize= 'large')
+cbar = plt.colorbar()
+cbar.set_label('Temperatur ($\degree$C)',fontsize = 'large')
+
+# Create new window
+plt.figure(300)
+plt.grid()
+plt.plot(x,T)
+plt.plot(x,all_T[:,30])
+plt.plot(x,all_T[:,200])
+#plt.plot(x,all_T[:,600])
+plt.xlabel("Djup från markytan (m)", fontsize='large')
+plt.ylabel("Temperatur ($\degree$C)", fontsize='large')
+
+
 plt.show()
 
 
